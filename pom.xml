@@ -1,156 +1,146 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.0.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>io.javatab.microservices.core.course</groupId>
+	<artifactId>course-service</artifactId>
+	<version>1.0.0</version>
+	<name>course-service</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>17</java.version>
+		<testcontainers.version>1.16.2</testcontainers.version>
+		<spring-cloud.version>2022.0.1</spring-cloud.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.3.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+		</dependency>
+		<!--Internal Dep-->
+		<dependency>
+			<groupId>io.javatab.microservices.api</groupId>
+			<artifactId>api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.javatab.microservices.util</groupId>
+			<artifactId>util</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mongodb</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
-    <!-- Parent POM -->
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.5</version> <!-- Update to the latest stable Spring Boot version -->
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>testcontainers-bom</artifactId>
+				<version>${testcontainers.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-    <!-- Project Information -->
-    <groupId>io.javatab.microservices.core.course</groupId>
-    <artifactId>course-service</artifactId>
-    <version>1.0.0</version>
-    <name>course-service</name>
-    <description>Demo project for Spring Boot</description>
-
-    <!-- Properties -->
-    <properties>
-        <java.version>17</java.version>
-        <testcontainers.version>1.16.2</testcontainers.version>
-        <spring-cloud.version>2022.0.1</spring-cloud.version>
-    </properties>
-
-    <!-- Dependencies -->
-    <dependencies>
-        <!-- Spring Boot Starter Dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>1.3.1.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
-        </dependency>
-        <!-- Internal Dependencies -->
-        <dependency>
-            <groupId>io.javatab.microservices.api</groupId>
-            <artifactId>api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.javatab.microservices.util</groupId>
-            <artifactId>util</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <!-- Test Dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>mongodb</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <!-- Dependency Management -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- Testcontainers BOM -->
-            <dependency>
-                <groupId>org.testcontainers</groupId>
-                <artifactId>testcontainers-bom</artifactId>
-                <version>${testcontainers.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- Spring Cloud BOM -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <!-- Build Configuration -->
-    <build>
-        <plugins>
-            <!-- Spring Boot Maven Plugin -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <!-- CycloneDX Maven Plugin -->
-            <plugin>
-                <groupId>org.cyclonedx</groupId>
-                <artifactId>cyclonedx-maven-plugin</artifactId>
-                <version>2.7.6</version> <!-- Replace with the version of CycloneDX Maven plugin -->
-                <executions>
-                    <execution>
-                        <id>create-bom</id>
-                        <goals>
-                            <goal>makeBom</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <outputFormat>XML</outputFormat> <!-- or JSON if preferred -->
-                    <outputName>bom</outputName>
-                    <includeBomSerialNumber>false</includeBomSerialNumber>
-                    <includeLicenseText>false</includeLicenseText>
-                    <componentVersion>2.0.0</componentVersion>
-                    <includeConfigs>
-                        <includeConfig>runtimeClasspath</includeConfig>
-                    </includeConfigs>
-                    <schemaVersion>1.5</schemaVersion>
-                    <destination>${project.build.directory}/reports</destination>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+                            <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>makeAggregateBom</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+                           <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+        <configuration>
+            <projectType>library</projectType>
+            <schemaVersion>1.5</schemaVersion>
+            <includeBomSerialNumber>true</includeBomSerialNumber>
+            <includeCompileScope>true</includeCompileScope>
+            <includeProvidedScope>true</includeProvidedScope>
+            <includeRuntimeScope>true</includeRuntimeScope>
+            <includeSystemScope>true</includeSystemScope>
+            <includeTestScope>false</includeTestScope>
+            <includeLicenseText>false</includeLicenseText>
+            <outputReactorProjects>true</outputReactorProjects>
+            <outputFormat>all</outputFormat>
+            <outputName>bom</outputName>
+            <outputDirectory>target</outputDirectory><!-- usually target, if not redefined in pom.xml -->
+            <verbose>false</verbose><!-- = ${cyclonedx.verbose} -->
+        </configuration>
+    </plugin>
+		</plugins>
+	</build>
 
 </project>
+
