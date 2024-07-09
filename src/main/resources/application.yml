@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name: vote
+    name: search
   cloud:
     config:
       failFast: true
@@ -15,7 +15,7 @@ spring:
       password: ${CONFIG_SERVER_PWD}
 
 server:
-  port: 9878
+  port: 9890
   logging:
     level:
       org.springframework: DEBUG
